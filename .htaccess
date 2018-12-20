@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteRule (.*) index.php [NC]
+</IfModule>
+
+# GZip Compression
+# compress text, html, javascript, css, xml.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Settings for post request
+<IfModule mod_php5.c>
+php_value post_max_size 10M
+php_value upload_max_filesize 5M
+php_value memory_limit 1024M
+php_value max_execution_time 300
+php_value max_input_time 600
+php_value session.gc_maxlifetime 1200
+php_value max_input_vars 10000
+</IfModule>

@@ -1,0 +1,201 @@
+.fl
+{
+    float:left;
+}
+.fr
+{
+    float:right;
+}
+
+.ml10
+{
+    margin-left: 10px;
+}
+
+.ml20
+{
+    margin-left: 20px;
+}
+
+.mr10
+{
+    margin-right: 10px;
+}
+
+.mr20
+{
+    margin-right: 20px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mb5 {
+  margin-bottom: 5px;
+}
+
+.mb10 
+{
+    margin-bottom: 10px;
+}
+
+.mb20
+{
+    margin-bottom: 20px;
+}
+
+.pt10 
+{
+    padding-top: 10px;
+}
+
+.pt20
+{
+    padding-top: 20px;
+}
+
+.pl10 
+{
+    padding-left: 10px;     
+}
+
+.pb10 
+{
+  padding-bottom: 10px;
+}
+
+.pad10
+{
+    padding: 10px;
+}
+
+.border 
+{
+    border: solid 1px #D4D4D4;
+}
+
+.clear {
+  clear: both;
+}
+
+.width100p
+{
+    width: 100% !important;
+}
+
+.tac {
+  text-align: center;
+}
+
+.tar
+{
+    text-align: right;
+}
+
+.tal
+{
+    text-align: left !important;
+}
+
+a.success {
+  color: #336699;
+}
+
+.dsn 
+{
+    display:none;
+}
+
+.dsb
+{
+    display:block;
+}
+
+.vat
+{
+    vertical-align: top;
+}
+
+.italic
+{
+    font-style:italic;
+}
+
+.pointer
+{
+    cursor:pointer;
+}
+
+.tab1
+{
+  margin-left: 25px;
+}
+
+.tab2
+{
+  margin-left: 50px;
+}
+
+.tab3
+{
+  margin-left: 75px;
+}
+
+.tab4
+{
+  margin-left: 100px;
+}
+
+.tab5
+{
+  margin-left: 125px;
+}
+
+.odd
+{
+  background-color: #FFF6BF;
+}
+
+.even
+{
+  background: url(/web/images/theme/bg.png) fixed;
+}
+
+.width50 {
+  width: 50px;
+}
+
+.width400 {
+  width: 400px;
+}
+
+.width200 {
+  width: 200px !important;
+}
+
+.move {
+  cursor: move;
+}
+
+.width600 {
+  width: 600px;
+}
+
+.width100 {
+  width: 100px !important;
+}
+
+.width70p {
+  width: 70%;
+}
+
+

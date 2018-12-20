@@ -1,0 +1,1 @@
+<div class="welcomepane">Welcome to PHPWEBPAD</div>

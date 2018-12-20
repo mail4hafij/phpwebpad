@@ -1,0 +1,29 @@
+body {
+  font-family: verdana;
+  font-size: 13px;
+}
+
+#wrap {
+  margin: 0 auto;
+  clear: both;
+  max-width: 1200px;
+}
+
+#bodywrap {
+  width: 1000px;
+}
+
+#footwrap {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.welcomepane {
+  font-size: 40px;
+  text-align: center;
+  margin-top: 250px;
+}
+
+div.white {
+  color: white;
+}
