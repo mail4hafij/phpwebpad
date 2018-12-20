@@ -1,7 +1,7 @@
 <?php
 class ApplicationController extends LayoutController {
   /**
-  * Start of implementing abstract methods of the LayoutController class
+  * Start implementation of Controller class
   */
   public function actions() {
     $actions = array('index');

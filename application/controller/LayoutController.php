@@ -1,7 +1,7 @@
 <?php
 class LayoutController extends Controller {
   /**
-   * Start of implementing abstract methods of the LayoutController class
+   * Start implementation of Controller class
    */
   public function actions() {
     $actions = array('loadbalancer');
