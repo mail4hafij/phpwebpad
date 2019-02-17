@@ -1,13 +1,17 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 1.2                                                                           *
-* License: Free to use                               *
+* Version: 1.0                                                                           *
+* License: http://phpwebpad.com @copyright from 2013                                     *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
-* Mohammad Hafijur Rahman                                                                *
+* Mohammad Hafijur Rahman (Badal)                                                        *
 * mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
 * ------------------------------------------------------------------------------------ **/
 
+/**
+* The heart of the orm.
+* This is the innermost layer of the mysql database.
+*/
 class Database {
   private $link = null;
   private $db = null;
@@ -16,7 +20,7 @@ class Database {
   private $inTransaction = false;
 
   /**
-  * Public constructor. Connect with the mysql database by using mysql_connect
+  * Public contstructor. Connect with the mysql database by using mysql_connect
   * @param string $host
   * @param string $db
   * @param string $username
@@ -62,7 +66,7 @@ class Database {
 
   /**
   * private function. Can only be used by createTable
-  * Responsible for creating column from a table definition.
+  * Responsible for creating table's column from a table definition.
   * @param TableDefinition $table
   */
   private function addColumns(TableDefinition $table) {
@@ -72,7 +76,7 @@ class Database {
     foreach($columns as $column) {
       if(!$this->isColumnExist($table_name, $column['name'])){
         // Now we will check if the column type is nonNull or can
-        // accept null.        
+        // except null.        
         $nonNull = $column['non_null'];
         if($nonNull) {
           if($column['default'] === null) {
@@ -191,7 +195,7 @@ class Database {
   }
 
   /**
-   * Not implemented yet.
+   * Not emplemented yet.
    * @param TableDefinition $table
    * @return void
    */
@@ -418,11 +422,16 @@ class Database {
   * @return string
   */
   public static function wrapValue($value) {
-    return is_null($value) ? 'NULL' : "'".addslashes($value)."'"; 
+    if(is_null($value)) {
+      return 'NULL';
+    } else if($value === false) {
+      return "'". addslashes(0)."'";
+    } 
+    return "'".addslashes($value)."'"; 
   }
 
   /**
-  * Depricated. Will be removed in the next version.
+  * Deprecated. Will be removed in the next version.
   * ------------------------------------------------
   * Escape special character in a given string
   * @param string $str
@@ -765,7 +774,7 @@ class Database {
       $obj->setPrimaryKey($row[$pk]);
       $cols = $obj->getTableDefinition()->getColumns();
       foreach($cols as $c) {
-        $obj->$c['name'] = $row[$c['name']];
+        $obj->{$c['name']} = $row[$c['name']];
       }
       $list[] = $obj;
     }
@@ -975,45 +984,6 @@ class Database {
 
     $sql = sprintf('UPDATE %s SET deleted = 1 %s',
                       self::wrapName($table_name),
-                      $where_clause);
-    
-    $this->query($sql);
-  }
-  
-  /**
-   * Set a specific column to null.
-   * @param type $class_name
-   * @param type $where
-   * @throws Exception
-   */
-  public function setNullAll($class_name, $column_name, $where = null) {
-    $obj = new $class_name();
-    $table_name = $obj->getTableDefinition()->getTableName();
-
-    $where_clause = "";
-    if(is_string($where)) {
-      $where_clause = "WHERE ".$where;
-
-    } else if(is_array($where)) {
-      foreach($where as $key => $value) {
-        $where_clause = $where_clause . self::wrapName($key) . " = " .
-        self::wrapValue($value) . " AND ";
-      }
-
-      if(!empty($where_clause)) {
-        $where_clause = "WHERE " . rtrim($where_clause, 'AND ');
-      }
-      
-    } else if(empty($where)) {
-      // its ok.
-    } else {
-      throw new Exception('WHERE clause is not valid.');
-    }
-      
-    $sql = sprintf('UPDATE %s SET %s = %s %s',
-                      self::wrapName($table_name),
-                      self::wrapName($column_name),
-                      self::wrapValue(null),
                       $where_clause);
     
     $this->query($sql);
