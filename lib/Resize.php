@@ -1,8 +1,8 @@
 <?php
 
 # ========================================================================#
-#
-   #  Author:    Jarrod Oberto
+#  Modified by: Mohammad Hafijur Rahman
+#  Author:    Jarrod Oberto
 #  Version:	 1.0
 #  Date:      17-Jan-10
 #  Purpose:   Resizes and saves image
@@ -23,6 +23,7 @@ Class Resize {
   private $imageResized;
   public $width;
   public $height;
+  public $size;
   
   function __construct($fileName) {
     // *** Open up the file
@@ -32,6 +33,7 @@ Class Resize {
     // *** Get width and height
     $this->width = imagesx($this->image);
     $this->height = imagesy($this->image);
+    $this->size = filesize($fileName);
   }
 
   ## --------------------------------------------------------
@@ -282,8 +284,23 @@ Class Resize {
         // *** No extension - No save.
         break;
     }
-
+    
+    // Lets destroy both images.
+    // So when An image has to be resized 
+    // The constructor needs to be called again.
+    // I know calling the constructor several times
+    // when we are resizing images could be a bad thing.
+    // But we have optimzeproductimage where we 
+    // load every image one by one from the product
+    // directory. So, in that situation the memory
+    // gets full when loading so many images and not 
+    // destroying any original image from the memory.
+    // That is why, I destroy both the original and 
+    // resized image when we are finished with any 
+    // resize. For the next resize we need to call the 
+    // constructor again.
     imagedestroy($this->imageResized);
+    imagedestroy($this->image);
   }
 
   ## --------------------------------------------------------

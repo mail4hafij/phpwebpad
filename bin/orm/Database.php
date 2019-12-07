@@ -1,6 +1,6 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 1.0                                                                           *
+* Version: 2.0                                                                           *
 * License: http://phpwebpad.com @copyright from 2013                                     *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
@@ -20,7 +20,7 @@ class Database {
   private $inTransaction = false;
 
   /**
-  * Public contstructor. Connect with the mysql database by using mysql_connect
+  * Public constructor. Connect with the mysql database by using mysql_connect
   * @param string $host
   * @param string $db
   * @param string $username
@@ -66,7 +66,7 @@ class Database {
 
   /**
   * private function. Can only be used by createTable
-  * Responsible for creating table's column from a table definition.
+  * Responsible for creating table columns from a table definition.
   * @param TableDefinition $table
   */
   private function addColumns(TableDefinition $table) {
@@ -195,7 +195,7 @@ class Database {
   }
 
   /**
-   * Not emplemented yet.
+   * Not implemented yet.
    * @param TableDefinition $table
    * @return void
    */
