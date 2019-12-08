@@ -1,7 +1,7 @@
 # phpwebpad
 phpwebpad is a very lightweight MVC driven framework. Visit http://phpwebpad.hafij.com
 
-File structure
+File structure:
 + application
    + controller
      - ApplicationController.php
@@ -22,7 +22,8 @@ File structure
 - index.php
 
 
-Controller
+Controller:
+
     A controller extends the Controller class.
     The default controller name is Application.
     Allowable name e.g., User, User_settings, Usersettings
@@ -32,16 +33,19 @@ Controller
     File path: /application/controller/UserController.php or /application/controller/User_settingsController.php, etc.
 
 
-Action and view
+Action and view:
+
     The default action name is index.
     File path: e.g. If your action name is login then the view file should be in application/view/{controllername}/login.php.
 
-Layout and element
+Layout and element:
+
     The default layout name is layout.
     The file path for layout: /application/layout/layout.php.
     File path for element: /application/element/{yourpage.php}.
 
-Models
+Models:
+
     A model extends Model class and implement getTableDefination() method.
     Class name and the model name should be the same.
     File path: /application/model/{yourmodel.php}.
