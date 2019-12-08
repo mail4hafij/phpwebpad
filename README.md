@@ -1,5 +1,5 @@
 # phpwebpad
-phpwebpad is a very lightweight MVC driven framework. Visit http://phpwebpad.hafij.com
+phpwebpad is a very lightweight MVC driven framework. Visit <a href="http://phpwebpad.hafij.com" target="_blank">phpwebpad.hafij.com</a>
 
 File structure:
 + application
