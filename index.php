@@ -1,10 +1,10 @@
 <?php
 /** -------------------------------------------------------------------------------------*
 * Version: 2.0                                                                           *
-* License: http://phpwebpad.hafij.com @copyright from 2010                               *
+* License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
-* Mohammad Hafijur Rahman (Badal)                                                        *
+* Mohammad Hafijur Rahman                                                                *
 * mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
 * ------------------------------------------------------------------------------------ **/
 

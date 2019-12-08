@@ -1,7 +1,7 @@
 <?php
 /** -------------------------------------------------------------------------------------*
 * Version: 2.0                                                                           *
-* License: http://phpwebpad.com @copyright from 2013                                     *
+* License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
 * Mohammad Hafijur Rahman (Badal)                                                        *
