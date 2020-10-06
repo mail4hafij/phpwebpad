@@ -7,6 +7,8 @@ File structure:
      - ApplicationController.php
    + model
      - Config.php
+     - DataContext.php
+     - InfoKeeper.php
    + view
      + application
        - index.php
