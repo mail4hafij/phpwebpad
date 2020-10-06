@@ -2,16 +2,6 @@
 
 class Config {
 
-  private static $database = null;
-
-  public static function getDatabase() {
-    if (self::$database == null) {
-      // local server
-      // self::$database = new Database('localhost', 'usell', 'root', '');
-    }
-    return self::$database;
-  }
-
   public static function getDateTime() {
     return gmdate('Y-m-d H:i:s', time());
   }
@@ -35,17 +25,17 @@ class Config {
   public static function getRandomString() {
     return md5(uniqid(rand(), true));
   }
+  
+  public static function getRandomFileName() {
+    return md5(uniqid(rand(), true));
+  } 
 
-  public static function clean($text) {
+  public static function clean($text, $keep_html = false) {
     $text = trim($text);
-    $text = strip_tags($text);
-    $text = str_replace('´', "", $text);
-    $text = str_replace('`', "", $text);
-    $text = str_replace("'", "", $text);
-    $text = str_replace("/", "", $text);
-    $text = str_replace("\\", "", $text);
-    $text = str_replace("\r", "", $text);
-    $text = str_replace("\n", "", $text);
+    if($keep_html != true) {
+      $text = strip_tags($text);
+    }
+    
     return $text;
   }
 
@@ -67,6 +57,10 @@ class Config {
     }
 
     return $ub;
+  }
+  
+  public static function getCurrentIP() {
+    return $_SERVER['REMOTE_ADDR'];
   }
 
 }
