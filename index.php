@@ -70,9 +70,9 @@ function fatalErrorHandler() {
   $error = error_get_last();
 
   # Checking if last error is a fatal error 
-  if($error && ($error['type'] === E_ERROR || $error['type'] === ~E_ERROR)) {
+  if(isset($error) && ($error['type'] === E_ERROR || $error['type'] === ~E_ERROR)) {
     throw new ErrorException("an error has occured in ".$error['file']);
-  } else if($error && ($error['type'] === E_USER_ERROR || $error['type'] === ~E_USER_ERROR)) {
+  } else if(isset($error) && ($error['type'] === E_USER_ERROR || $error['type'] === ~E_USER_ERROR)) {
     throw new UserErrorException("An error has occured in ".$error['file']);
   }
 }
