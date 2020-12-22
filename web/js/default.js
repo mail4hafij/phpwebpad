@@ -98,7 +98,7 @@ $(function(){
   // timeout:   3000
   };
 
-  $("button[name='jsonsubmit']").live('click', function () {
+  $("button[name='jsonsubmit']").on('click', function () {
     if ($(this).hasClass("confirm")) {
       var conf = confirm("Are you sure?");
       if (!conf) {
@@ -139,7 +139,7 @@ $(function(){
     return null;
   }
   
-  $("a.get").live('click', function() {
+  $("a.get").on('click', function() {
     var url = $(this).attr("href");
     var addClass = getURLParameter(url, 'addClass');
     if(addClass != null) {
