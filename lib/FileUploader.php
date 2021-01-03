@@ -1,7 +1,12 @@
 <?php
-/**
- * Mohammad Hafijur Rahman
- */
+# ========================================================================#
+#  Author: Mohammad Hafijur Rahman
+#  Version:	1.0
+#  Date: 01-01-2027
+#  Purpose: file upload
+#  Requires : Requires PHP5
+# ========================================================================#
+
 class FileUploader {
   var $upload_dir;
   var $type;
