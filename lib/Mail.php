@@ -2,7 +2,7 @@
 
 # ========================================================================#
 #  Author: Mohammad Hafijur Rahman
-#  Version:	1.0
+#  Version:	2.0
 #  Date: 01-01-2021
 #  Purpose: Send email using php mail function
 #  Requires : Requires PHP5
