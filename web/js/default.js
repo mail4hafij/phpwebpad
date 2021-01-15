@@ -71,13 +71,12 @@ $(function(){
       }
 
     } else {
-      // Special case loginerror.
-      if(obj.error == "loginerror") {
-        $("a#hidden_spy").attr("href", "/User/loginpartial");
-        $("a#hidden_spy").trigger("click");
-      }
-      else if (obj.showmsg != null) {
-        $("#" + obj.showmsg).html(obj.error).addClass("error").removeClass("notice").removeClass("dsn");
+      if (obj.showmsg != null) {
+        if(obj.showmsg == "alert") {
+          alert(obj.error);
+        } else {
+          $("#" + obj.showmsg).html(obj.error).addClass("error").removeClass("notice").removeClass("dsn");
+        }
       } else {
         $("#showmsg").html(obj.error).addClass("error").removeClass("notice").removeClass("dsn");
       }
