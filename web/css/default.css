@@ -160,16 +160,6 @@ a.success {
   margin-left: 125px;
 }
 
-.odd
-{
-  background-color: #FFF6BF;
-}
-
-.even
-{
-  background: url(/web/images/theme/bg.png) fixed;
-}
-
 .width50 {
   width: 50px;
 }
