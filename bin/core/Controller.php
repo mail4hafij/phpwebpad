@@ -131,9 +131,13 @@ abstract class Controller {
       }
       $param = rtrim($param,",");
       $php = "\$this"."->".$action_name."(".$param.");";
+      
+      header('Content-Type: text/html; charset=utf-8');
       eval($php);
       
     } else if($is_json_action) {
+      $this->setView(null);
+      $this->setLayout(null);
       $param = "";
       foreach($parameters as $key=>$value) {
         $param = $param."\$parameters[$key],";
@@ -143,9 +147,8 @@ abstract class Controller {
       include_once(CORE."JSONResponse.php");
       $json = eval('return '.$php);
       
+      header('Content-Type: application/json');
       echo $json->getResponse();
-      $this->setView(null);
-      $this->setLayout(null);
       
     } else {
       $this->catchUnAllowedActions($action_name);

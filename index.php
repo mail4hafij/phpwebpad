@@ -8,8 +8,6 @@
 * mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
 * ------------------------------------------------------------------------------------ **/
 
-header('Content-Type: text/html; charset=utf-8');
-
 /**
  * Start of session
  */
