@@ -1,32 +1,5 @@
 $(function(){
 
-  /** 
-  * Handling ajax call
-  */
-  $("body").ajaxSend(function (e, xhr, opt) {
-    // We can add more url that should't start the loader here...
-    var showLoader = (opt.url != "/Controller/Action");
-
-    if (showLoader == true) {
-      $.loader({
-        className: "blue-with-image-2",
-        content: ''
-      });
-    }
-  });
-
-  $("body").ajaxError(function () {
-    $.loader('close');
-  });
-
-  $("body").ajaxComplete(function () {
-    $.loader('close');
-  });
-
-  /**
-  * end 
-  */
-
   /**
   * start
   * Making any form to ajax form.
@@ -108,13 +81,7 @@ $(function(){
     $(this.form).ajaxSubmit(options);
     return false;
   });
-  
-  
-  var showJsonResponseForLink = function(obj) {
-    var json = jQuery.parseJSON(obj);
-    showJsonResponse(json);
-  };
-  
+    
   function getURLParameter(url, index) {
     if(url.indexOf('?') != -1) {
       var variables = url.split('?')[1];
@@ -139,61 +106,25 @@ $(function(){
   }
   
   $("a.get").on('click', function() {
+    if ($(this).hasClass("confirm")) {
+      var conf = confirm("Are you sure?");
+      if (!conf) {
+        return false;
+      }
+    }
+    
     var url = $(this).attr("href");
     var addClass = getURLParameter(url, 'addClass');
     if(addClass != null) {
       $(this).addClass(addClass);
     }
     var container = getURLParameter(url, 'container');
-
-    if ($(this).hasClass("confirm")) {
-      $.post("/Translation/getJsConfirm", {phrase: 'Are you sure?'}, function(r) {
-        var json = jQuery.parseJSON(r);
-        
-        $.confirm({
-          'message'	: json.text,
-          'buttons'	: {
-              yes : {
-                'name' : json.yes,
-                'class'	: 'blue',
-                'action': function(){
-                  // Yes has been clicked.
-                  if(container == null) {
-                    $.get(url, showJsonResponseForLink);
-                  } else {
-                    $("#" + container).load(url);
-                  }
-                }
-              },
-              no : {
-                'name' : json.no,
-                'class'	: 'gray',
-                'action': function(){
-                  // Do nothing
-                  return false;
-                }	
-              }
-            }
-        });
-      });
-      
-      /*
-      var conf = confirm("Are you sure?");
-      if (!conf) {
-        return false;
-      }
-      */
+    if(container == null) {
+      $.get(url, showJsonResponse);
     } else {
-      // if there is no confirm box then just do the samething
-      // as if the user has clicked the yes button.
-      if(container == null) {
-        $.get(url, showJsonResponseForLink);
-      } else {
-        $("#" + container).load(url);
-      }
+      $("#" + container).load(url);
     }
-    
-    return false;  
+    return false;
   });
   
   // if we have widgeEditor we need to submit the form by calling the following
@@ -204,7 +135,6 @@ $(function(){
     $(document.forms[formid]).ajaxSubmit(options);
     return false;
   };
-
 
   /**
   * end

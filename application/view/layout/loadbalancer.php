@@ -10,7 +10,8 @@
 
 
 <!--JavaScript-->
-<script type="text/javascript" src="/web/js/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/web/js/jquery/jquery-1.12.4.min.js"></script>
+<!--<script type="text/javascript" src="/web/js/jquery/jquery-1.8.3.min.js"></script>-->
 <script type="text/javascript" src="/web/js/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="/web/js/default.js"></script>
 
