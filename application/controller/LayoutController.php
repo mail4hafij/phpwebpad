@@ -4,7 +4,7 @@ class LayoutController extends Controller {
    * Start implementation of Controller class
    */
   public function actions() {
-    $actions = array('loadbalancer');
+    $actions = array('loadcss', 'loadjs', 'usejs');
     return $actions;
   }
   
@@ -29,16 +29,27 @@ class LayoutController extends Controller {
   }
   
   public function afterRender($action_name, $controller_name) {
-
+    $this->setLayoutVar('log', Controller::getLog());
   }
   /**
    * End
    */
 
-  public function loadbalancer() {
+  public function loadcss() {
     $this->setLayout(null);
     $this->setViewVar("browser", WebContext::getUserBrowser());
   }
+  
+  public function loadjs() {
+    $this->setLayout(null);
+    $this->setViewVar("browser", WebContext::getUserBrowser());
+  }
+  
+  public function usejs() {
+    $this->setLayout(null);
+    $this->setViewVar("browser", WebContext::getUserBrowser());
+  }
+  
   
 }
 ?>
