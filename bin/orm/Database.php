@@ -1,10 +1,11 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 2.0                                                                           *
+* Version: 3.0                                                                           *
+* framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
-* Mohammad Hafijur Rahman (Badal)                                                        *
+* Mohammad Hafijur Rahman                                                                *
 * mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
 * ------------------------------------------------------------------------------------ **/
 
@@ -46,11 +47,13 @@ class Database {
   */
   public function createTable(TableDefinition $table) {
     if(!$this->isTableExist($table->getTableName())) {
-      $sql = sprintf('CREATE TABLE %s(%s INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(%s))',
-                      self::wrapName($table->getTableName()),
-                      self::wrapName($table->getPrimaryKeyName()),
-                      self::wrapName($table->getPrimaryKeyName())
-             );
+      $sql = sprintf('CREATE TABLE %s (%s BIGINT NOT NULL AUTO_INCREMENT, 
+        PRIMARY KEY(%s)) AUTO_INCREMENT = %s',
+          self::wrapName($table->getTableName()),
+          self::wrapName($table->getPrimaryKeyName()),
+          self::wrapName($table->getPrimaryKeyName()),
+          $table->getAutoIncreament()
+      );
       
       $this->query($sql);
       $this->addColumns($table);
@@ -62,6 +65,28 @@ class Database {
       $this->addUniqueKeys($table);
       //$this->addTriggers($table);
     }
+  }
+  
+  /**
+  * Truncate a table
+  * @param TableDefinition $table
+  * @return void.
+  */
+  public function truncateTable(TableDefinition $table) {
+    if(!$this->isTableExist($table->getTableName())) {
+      throw new Exception('Table does not exist.');
+    }
+    $this->query("SET FOREIGN_KEY_CHECKS=0;");
+    $sql = sprintf('TRUNCATE TABLE %s', self::wrapName($table->getTableName()));
+    $this->query($sql);
+    
+    $sql = sprintf('ALTER TABLE %s AUTO_INCREMENT = %s',
+      self::wrapName($table->getTableName()),
+      $table->getAutoIncreament()
+    );
+    $this->query($sql);
+
+    $this->query("SET FOREIGN_KEY_CHECKS=1;");  
   }
 
   /**
@@ -464,54 +489,15 @@ class Database {
   */
   public function loadAll($class_name, $where = null, $orderBy = null,
                                  $page = 1, $limit = null) {
-    $obj = new $class_name();
-    $table_name = $obj->getTableDefinition()->getTableName();
     
-    $where_clause = "";
-    if(is_string($where)) {
-      $where_clause = "WHERE ".$where;
-      
-    } else if(is_array($where)) {
-      foreach($where as $key => $value) {
-        $where_clause = $where_clause.self::wrapName($key)." = ".
-        self::wrapValue($value)." AND ";
-      }
-
-      if(!empty($where_clause)) {
-        $where_clause = "WHERE ".rtrim($where_clause, 'AND ');
-      }
-      
-    } else if(empty($where)) {
-      // its ok.
-    } else {
-      throw new Exception('WHERE clause is not valid.');
-    }
-
-
-    $orderby_clause = "";
-    if(is_string($orderBy)) {
-      $orderby_clause = "ORDER BY ".$orderBy;
-    } else if(empty($orderBy)) {
-      // its ok.
-    } else {
-      throw new Exception('ORDER BY clause is not valid.');
-    }
-
-    $limit_clause = "";
-    if(!empty($limit)) {
-      $offset = ($page - 1) * $limit;
-      $limit_clause = "LIMIT ".$offset.", ".$limit;
-    }
-
-    $sql = sprintf('SELECT * FROM %s %s %s %s',self::wrapName($table_name),
-    $where_clause, $orderby_clause, $limit_clause);
+    $sql = $this->loadAllQuery($class_name, $where, $orderBy, $page, $limit);
     $rs = $this->query($sql);
     $list = $this->rsToObjects($class_name, $rs);
     return $list;
   }
 
   /**
-   * Not recommended. Very bad performance.
+   * No join. Load all the foreign objects.
    * @param type $class_name
    * @param type $where
    * @param type $orderBy
@@ -522,8 +508,19 @@ class Database {
    */
   public function loadAllMany($class_name, $where = null, $orderBy = null,
                                  $page = 1, $limit = null) {
+    
+    $sql = $this->loadAllQuery($class_name, $where, $orderBy, $page, $limit);
+    $rs = $this->query($sql);
+    $list = $this->rsToManyObjects($class_name, $rs);
+    return $list;
+  }
+  
+  private function loadAllQuery($class_name, $where = null, $orderBy = null,
+                                 $page = 1, $limit = null) {
+    
     $obj = new $class_name();
     $table_name = $obj->getTableDefinition()->getTableName();
+    $table_name_clause = self::wrapName($table_name);
     
     $where_clause = "";
     if(is_string($where)) {
@@ -561,15 +558,14 @@ class Database {
       $limit_clause = "LIMIT ".$offset.", ".$limit;
     }
 
-    $sql = sprintf('SELECT * FROM %s %s %s %s',self::wrapName($table_name),
-    $where_clause, $orderby_clause, $limit_clause);
-    $rs = $this->query($sql);
-    $list = $this->rsToManyObjects($class_name, $rs);
-    return $list;
+    $sql = sprintf('SELECT * FROM %s %s %s %s', $table_name_clause,
+      $where_clause, $orderby_clause, $limit_clause);
+    
+    return $sql;
   }
   
   /**
-   * inner join.
+   * Inner join. Load all foreign objects.
    * @param type $class_name
    * @param type $where
    * @param type $orderBy
@@ -651,7 +647,21 @@ class Database {
     if(empty($list)) {
       throw new Exception($class_name . " was not found");
     }
-    
+    return $list[0];
+  }
+  
+  /**
+  * Return a $class_name object
+  * @param string $class_name
+  * @param string | array $where
+  * @param string $orderBy
+  * @return $class_name objects || null if the object can not be found.
+  */
+  public function loadOnlyMany($class_name, $where = null, $orderBy = null) {
+    $list = $this->loadAllMany($class_name, $where, $orderBy, 1, 1);
+    if(empty($list)) {
+      throw new Exception($class_name . " was not found");
+    }
     return $list[0];
   }
   
@@ -795,7 +805,7 @@ class Database {
       $obj->setPrimaryKey($row[$pk]);
       $cols = $obj->getTableDefinition()->getColumns();
       foreach($cols as $c) {
-        $obj->$c['name'] = $row[$c['name']];
+        $obj->{$c['name']} = $row[$c['name']];
       }
       
       $foreign_keys = $obj->getTableDefinition()->getForeignKeys();
@@ -829,7 +839,7 @@ class Database {
       $obj->setPrimaryKey($row[$table_name."_".$pk]);
       $cols = $obj->getTableDefinition()->getColumns();
       foreach($cols as $c) {
-        $obj->$c['name'] = $row[$table_name."_".$c['name']];
+        $obj->{$c['name']} = $row[$table_name."_".$c['name']];
       }
       
       $foreign_keys = array_values($obj->getTableDefinition()->getForeignKeys());
@@ -840,7 +850,7 @@ class Database {
         $model->setPrimaryKey($row[$table_name."_".$pk]);
         $cols = $model->getTableDefinition()->getColumns();
         foreach($cols as $c) {
-          $model->$c['name'] = $row[$table_name."_".$c['name']];
+          $model->{$c['name']} = $row[$table_name."_".$c['name']];
         }
         $obj->$model_name = $model;
       }

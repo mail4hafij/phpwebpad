@@ -17,6 +17,14 @@ class LayoutController extends Controller {
   }
   
   public function beforRender($action_name, $controller_name) {
+    if($action_name == "index" && $controller_name == "Application") {
+      // Init database
+      // TimeMachine::$TIME_TRAVEL = 0;
+      DataContext::init(false);
+    }
+    
+    // Init settings
+    InfoKeeper::getSettings();
     $this->setLayout('layout');
   }
   
@@ -29,7 +37,7 @@ class LayoutController extends Controller {
 
   public function loadbalancer() {
     $this->setLayout(null);
-    $this->setViewVar("browser", Config::getUserBrowser());
+    $this->setViewVar("browser", WebContext::getUserBrowser());
   }
   
 }

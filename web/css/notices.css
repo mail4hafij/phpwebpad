@@ -1,16 +1,17 @@
 /* 5.5 - Alerts & Messages */
 .msg {
-  border: solid 1px #CCCCCC;
+  border: solid 1px #cccccc;
   padding: 10px;
   margin: 0 0 20px 0;
 }
 
-.msg p, .blog-content .msg p {
+.msg p,
+.blog-content .msg p {
   margin: 0 !important;
 }
 
-.default {
-  background: url(images/msg_default.png) 10px center no-repeat #FFF;
+.info {
+  background: url(images/msg_default.png) 10px center no-repeat #fff;
   color: #424242;
   padding: 10px 10px 10px 55px;
   margin: 0 0 30px 0;
@@ -18,17 +19,17 @@
   line-height: 25px;
 }
 
-.default a {
+.info a {
   color: #424242;
   text-decoration: underline;
 }
 
 .notice {
-  background: url(images/msg_notice.png) 10px center no-repeat #FFF;
+  background: url(images/msg_notice.png) 10px center no-repeat #fff;
   color: #b3a437;
   padding: 10px 10px 10px 55px;
   margin: 0 0 30px 0;
-  border: solid 1px #FFD324;
+  border: solid 1px #ffd324;
   line-height: 25px;
   font-weight: bold;
 }
@@ -43,7 +44,7 @@
   color: #64ae23;
   padding: 10px 10px 10px 55px;
   margin: 0 0 30px 0;
-  border: solid 1px #19FF2C;
+  border: solid 1px #19ff2c;
   line-height: 25px;
   font-weight: bold;
 }
@@ -58,7 +59,7 @@
   color: #c83f39;
   padding: 10px 10px 10px 55px;
   margin: 0 0 30px 0;
-  border: solid 1px #FBC2C4;
+  border: solid 1px #fbc2c4;
   line-height: 25px;
   font-weight: bold;
 }

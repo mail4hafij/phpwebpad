@@ -1,7 +1,8 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 2.0                                                                           *
-* License: Free to use                                                                   * 
+* Version: 3.0                                                                           *
+* framework: https://github.com/mail4hafij/phpwebpad                                     *
+* License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
 * Mohammad Hafijur Rahman                                                                *

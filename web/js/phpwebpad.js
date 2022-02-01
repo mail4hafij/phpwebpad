@@ -1,5 +1,31 @@
 $(function(){
 
+  /** 
+  * Handling ajax call
+  */
+  $(document).ajaxSend(function (e, xhr, opt) {
+    // We can add more url that should't start the loader here...
+    var showLoader = (opt.url != "/Controller/Action");
+    if (showLoader == true) {
+      $.loader({
+        className: "blue-with-image-2",
+        content: ''
+      });
+    }
+  });
+
+  $(document).ajaxError(function () {
+    $.loader('close');
+  });
+
+  $(document).ajaxComplete(function () {
+    $.loader('close');
+  });
+
+  /**
+  * end 
+  */
+
   /**
   * start
   * Making any form to ajax form.
@@ -20,6 +46,11 @@ $(function(){
         }
       }
 
+      // check if something needs to hide
+      if(obj.hide != null) {
+        $("#" + obj.hide).hide();
+      }
+      
       // check if success message has been sent from the controller
       if (obj.success != null) {
         if (obj.showmsg != null) {
@@ -70,7 +101,7 @@ $(function(){
   // timeout:   3000
   };
 
-  $("button[name='jsonsubmit']").on('click', function () {
+  $(document).on('click', "button[name='jsonsubmit']", function () {
     if ($(this).hasClass("confirm")) {
       var conf = confirm("Are you sure?");
       if (!conf) {
@@ -81,8 +112,8 @@ $(function(){
     $(this.form).ajaxSubmit(options);
     return false;
   });
-    
-  function getURLParameter(url, index) {
+  
+  function getFromQueryString(url, key) {
     if(url.indexOf('?') != -1) {
       var variables = url.split('?')[1];
       if(variables.indexOf('&') != -1) {
@@ -90,14 +121,14 @@ $(function(){
         var parameters = variables.split('&');
         for(var i = 0; i < parameters.length; i++) {
           var pair = parameters[i].split('=');
-          if (pair[0] == index) {
+          if (pair[0] == key) {
             return pair[1];
           }
         }
       } else {
         // single parameter
         var pair = variables.split('=');
-        if (pair[0] == index) {
+        if (pair[0] == key) {
           return pair[1];
         }
       }
@@ -105,26 +136,60 @@ $(function(){
     return null;
   }
   
-  $("a.get").on('click', function() {
+  $(document).on('click', "a.get", function() {
+    var url = $(this).attr("href");
+    var addClass = getFromQueryString(url, 'addClass');
+    if(addClass != null) {
+      $(this).addClass(addClass);
+    }
+    var container = getFromQueryString(url, 'container');
+
     if ($(this).hasClass("confirm")) {
+      $.post("/Translation/getJsConfirm", {phrase: 'Are you sure?'}, function(json) {
+        $.confirm({
+          'message'	: json.text,
+          'buttons'	: {
+              yes : {
+                'name' : json.yes,
+                'class'	: 'blue',
+                'action': function(){
+                  // Yes has been clicked.
+                  if(container == null) {
+                    $.get(url, showJsonResponse);
+                  } else {
+                    $("#" + container).load(url);
+                  }
+                }
+              },
+              no : {
+                'name' : json.no,
+                'class'	: 'gray',
+                'action': function(){
+                  // Do nothing
+                  return false;
+                }	
+              }
+            }
+        });
+      });
+      
+      /*
       var conf = confirm("Are you sure?");
       if (!conf) {
         return false;
       }
+      */
+    } else {
+      // if there is no confirm box then just do the samething
+      // as if the user has clicked the yes button.
+      if(container == null) {
+        $.get(url, showJsonResponse);
+      } else {
+        $("#" + container).load(url);
+      }
     }
     
-    var url = $(this).attr("href");
-    var addClass = getURLParameter(url, 'addClass');
-    if(addClass != null) {
-      $(this).addClass(addClass);
-    }
-    var container = getURLParameter(url, 'container');
-    if(container == null) {
-      $.get(url, showJsonResponse);
-    } else {
-      $("#" + container).load(url);
-    }
-    return false;
+    return false;  
   });
   
   // if we have widgeEditor we need to submit the form by calling the following

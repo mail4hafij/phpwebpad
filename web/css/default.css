@@ -1,42 +1,42 @@
 .fl
 {
-    float:left;
+  float:left;
 }
 .fr
 {
-    float:right;
+  float:right;
 }
 
 .ml10
 {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .ml20
 {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .mr10
 {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .mr20
 {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .mt10 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .mt5 {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .mt20 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .mb5 {
@@ -45,27 +45,27 @@
 
 .mb10 
 {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .mb20
 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .pt10 
 {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .pt20
 {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 .pl10 
 {
-    padding-left: 10px;     
+  padding-left: 10px;     
 }
 
 .pb10 
@@ -75,12 +75,12 @@
 
 .pad10
 {
-    padding: 10px;
+  padding: 10px;
 }
 
 .border 
 {
-    border: solid 1px #D4D4D4;
+  border: solid 1px #D4D4D4;
 }
 
 .clear {
@@ -89,7 +89,7 @@
 
 .width100p
 {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 .tac {
@@ -98,12 +98,17 @@
 
 .tar
 {
-    text-align: right;
+  text-align: right;
 }
 
 .tal
 {
-    text-align: left !important;
+  text-align: left !important;
+}
+
+.cross 
+{
+  text-decoration: line-through !important;
 }
 
 a.success {
@@ -112,52 +117,37 @@ a.success {
 
 .dsn 
 {
-    display:none;
+  display:none;
 }
 
 .dsb
 {
-    display:block;
+  display:block;
 }
 
 .vat
 {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 .italic
 {
-    font-style:italic;
+  font-style:italic;
 }
 
 .pointer
 {
-    cursor:pointer;
+  cursor:pointer;
 }
 
-.tab1
+.odd
 {
-  margin-left: 25px;
+  background-color: #FFF6BF;
 }
 
-.tab2
+.even
 {
-  margin-left: 50px;
-}
-
-.tab3
-{
-  margin-left: 75px;
-}
-
-.tab4
-{
-  margin-left: 100px;
-}
-
-.tab5
-{
-  margin-left: 125px;
+  background-color: #EEE;
 }
 
 .width50 {
@@ -188,4 +178,10 @@ a.success {
   width: 70%;
 }
 
+.fsl {
+  font-size: large !important;
+}
 
+.bold {
+  font-weight: bold;
+}

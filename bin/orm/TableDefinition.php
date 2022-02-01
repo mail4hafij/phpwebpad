@@ -1,6 +1,7 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 2.0                                                                           *
+* Version: 3.0                                                                           *
+* framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
@@ -18,6 +19,7 @@ class TableDefinition {
   private $foreign_keys = array();
   private $allow_cascade = array();
   private $triggers = array();
+  private $auto_increament = 1;
 
   public function  __construct($table_name) {
     if(empty($table_name)) {
@@ -31,6 +33,17 @@ class TableDefinition {
     $this->addNonNullColumn('deleted', 'BOOL', 0);
   }
 
+  public function setAutoIncreament($inc = 1) {
+    if(!is_numeric($inc)) {
+      throw new Exception('Auto increamen must be numeric');
+    }
+    $this->auto_increament = $inc;
+  }
+  
+  public function getAutoIncreament() {
+    return $this->auto_increament;
+  }
+  
   /**
    * @param string $column_name
    * @param string $type
@@ -156,15 +169,15 @@ class TableDefinition {
     }
     
     $foreign_keys = array_values($this->foreign_keys);
-    foreach($foreign_keys as $model_name) {
-      $model = new $model_name();
-      $model_name = strtolower($model_name);
-      $col_name_clause = $col_name_clause.", ".$model_name.".".$model_name."_id ".$model_name."_".$model_name."_id";
-      $cols = $model->getTableDefinition()->getColumns();
-      foreach($cols as $c) {
-        $col_name_clause = $col_name_clause.", ".$model_name.".".$c['name']." ".$model_name."_".$c['name'];
+      foreach($foreign_keys as $model_name) {
+        $model = new $model_name();
+        $model_name = strtolower($model_name);
+        $col_name_clause = $col_name_clause.", ".$model_name.".".$model_name."_id ".$model_name."_".$model_name."_id";
+        $cols = $model->getTableDefinition()->getColumns();
+        foreach($cols as $c) {
+          $col_name_clause = $col_name_clause.", ".$model_name.".".$c['name']." ".$model_name."_".$c['name'];
+        }
       }
-    }
     
     return $col_name_clause;
   }

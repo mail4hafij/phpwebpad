@@ -1,6 +1,7 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 2.0                                                                           *
+* Version: 3.0                                                                           *
+* framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
 * DEVELOPED BY                                                                           *
@@ -48,16 +49,16 @@ abstract class Model {
     }
 
     $value = null;
-    $flag = true;
+    $found = false;
     foreach($this->info as $key => $val) {
       if($key == $name) {
         $value = $val;
-        $flag = false;
+        $found = true;
         break;
       }
     }
     
-    if($flag) {
+    if(!$found) {
       throw new Exception(get_class($this)." does not have property ".$name);
     }
     
@@ -77,25 +78,25 @@ abstract class Model {
     }
     
     $columns = $this->tableDefinition->getColumns();
-    $flag = true;
+    $found = false;
     foreach($columns as $c) {
       if($c['name'] == $name) {
         $this->info[$name] = $value;
-        $flag = false;        
+        $found = true;        
         break;
       } 
     }
 
     // Try with foreign keys
-    if($flag) {
+    if(!$found) {
       $foreign_keys = $this->tableDefinition->getForeignKeys();
       if(in_array($name, array_map("strtolower", array_values($foreign_keys)))) {
         $this->info[$name] = $value;
-        $flag = false;
+        $found = true;
       }
     }
       
-    if($flag) {
+    if(!$found) {
       throw new Exception(get_class($this)." does not have property ".$name);
     }
   }

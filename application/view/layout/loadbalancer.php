@@ -10,10 +10,9 @@
 
 
 <!--JavaScript-->
-<script type="text/javascript" src="/web/js/jquery/jquery-1.12.4.min.js"></script>
-<!--<script type="text/javascript" src="/web/js/jquery/jquery-1.8.3.min.js"></script>-->
-<script type="text/javascript" src="/web/js/jquery/jquery.form.js"></script>
-<script type="text/javascript" src="/web/js/default.js"></script>
+<script type="text/javascript" src="/web/js/jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/web/js/form/jquery.form.js"></script>
+<script type="text/javascript" src="/web/js/phpwebpad.js"></script>
 
 <!-- loader js -->
 <script type="text/javascript" src="/web/js/loader/jquery.loader-min.js"></script>

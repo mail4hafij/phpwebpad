@@ -2,8 +2,9 @@
 class InfoKeeper {
   public static $_STATUS = "CURRENT_STATUS";
   public static $_ID_LIST = "ID_LIST";
+  public static $_SETTINGS = "SETTINGS";
   
-
+  
   public static function setCurrentStatus($status) {
     $_SESSION[InfoKeeper::$_STATUS] = $status;
   }
@@ -39,6 +40,13 @@ class InfoKeeper {
       }
     }
     throw new Exception("Can not find unsecure id");
+  }
+  
+  public static function getSettings() {
+    if(!isset($_SESSION[self::$_SETTINGS])) {
+      $_SESSION[self::$_SETTINGS] = new Settings();
+    } 
+    return $_SESSION[self::$_SETTINGS];
   }
 }
 
