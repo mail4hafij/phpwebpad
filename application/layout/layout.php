@@ -25,7 +25,7 @@
     
     <div id="wrap">
       <center><div id="bodywrap"><?php echo $__VIEW__; ?></div></center>
-      <div class="clb"></div>
+      <div class="clear">&nbsp;</div>
       <div id="footwrap">&copy; Free to use phpwebpad</div>
     </div>
     
