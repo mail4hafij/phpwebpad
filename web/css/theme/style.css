@@ -27,3 +27,36 @@ body {
 div.white {
   color: white;
 }
+
+table.design {
+  border-top: #3f3f3f 5px solid;
+  border-left: #dee0e0 1px solid !important;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+table.design td, table.design th {
+  border-right: #dee0e0 1px solid;
+  border-bottom: #dee0e0 1px solid;
+  text-align: center;
+  vertical-align: top;
+}
+
+table.design th {
+  padding: 15px 10px 15px 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+table.design td {
+  padding: 10px;
+  line-height: 160%;
+}
+
+table.design tr {
+  background: #fff;
+}
+
+table.design tr:nth-child(2n) {
+  background: #f5f5f5;
+}
