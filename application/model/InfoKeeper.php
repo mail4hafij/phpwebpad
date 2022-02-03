@@ -48,6 +48,16 @@ class InfoKeeper {
     } 
     return $_SESSION[self::$_SETTINGS];
   }
+  
+  public static function setAntiForgery($key, $val = null) {
+    $_SESSION[$key] = $val;
+  }
+
+  public static function getAntiForgery($key) {
+    if(!isset($_SESSION[$key])) return null;
+    $msg = $_SESSION[$key];
+    return $msg;
+  }
 }
 
 ?>
