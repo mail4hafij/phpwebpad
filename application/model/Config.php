@@ -26,19 +26,6 @@ class Config {
     return mt_rand(100000, 999999);
   }
 
-  public static function clean($text, $clean_html = true, $keep_newline = true) {
-    $text = trim($text);
-    if($clean_html) {
-      if($keep_newline) {
-        return nl2br(strip_tags($text));
-      } else {
-        return strip_tags($text);
-      }
-    } else {
-      return nl2br($text);
-    }
-  }
-
   public static function getRandomFileName() {
     return md5(uniqid(rand(), true));
   } 

@@ -64,6 +64,19 @@ function sql() {
   return $str;
 }
 
+function clean($text, $clean_html = true, $keep_newline = true) {
+  $text = trim($text);
+  if($clean_html) {
+    if($keep_newline) {
+      return nl2br(strip_tags($text));
+    } else {
+      return strip_tags($text);
+    }
+  } else {
+    return nl2br($text);
+  }
+}
+
 /***
  * Replace the last occurance of the search 
  */
@@ -84,6 +97,7 @@ function date_sort($a, $b) {
   }
   return ($a < $b) ? -1 : 1;
 }
+
 /**
  * END Helper function
  */

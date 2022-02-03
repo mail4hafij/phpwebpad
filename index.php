@@ -150,8 +150,8 @@ function __autoload($class){
     throw new Exception('Class '.$class.' can not be found.');
   }
 }
-// Manually include the helper functions.
-include_once("bin/Helper.php");
+// Manually include the root functions.
+include_once("bin/Root.php");
 /**
  * END autoload classes
  */
