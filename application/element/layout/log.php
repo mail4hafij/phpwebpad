@@ -66,7 +66,6 @@
     // layout
     $('a.log_picker_toggle').click(helperEvent);
     
-    
     // default
     if($.cookie("log_show_helper") === "on") {
       

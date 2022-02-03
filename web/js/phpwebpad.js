@@ -8,7 +8,7 @@ $(function(){
     var showLoader = (opt.url != "/Controller/Action");
     if (showLoader == true) {
       $.loader({
-        className: "blue-with-image-2",
+        className: "blue-with-image-alt",
         content: ''
       });
     }
@@ -145,40 +145,10 @@ $(function(){
     var container = getFromQueryString(url, 'container');
 
     if ($(this).hasClass("confirm")) {
-      $.post("/Translation/getJsConfirm", {phrase: 'Are you sure?'}, function(json) {
-        $.confirm({
-          'message'	: json.text,
-          'buttons'	: {
-              yes : {
-                'name' : json.yes,
-                'class'	: 'blue',
-                'action': function(){
-                  // Yes has been clicked.
-                  if(container == null) {
-                    $.get(url, showJsonResponse);
-                  } else {
-                    $("#" + container).load(url);
-                  }
-                }
-              },
-              no : {
-                'name' : json.no,
-                'class'	: 'gray',
-                'action': function(){
-                  // Do nothing
-                  return false;
-                }	
-              }
-            }
-        });
-      });
-      
-      /*
       var conf = confirm("Are you sure?");
       if (!conf) {
         return false;
       }
-      */
     } else {
       // if there is no confirm box then just do the samething
       // as if the user has clicked the yes button.
