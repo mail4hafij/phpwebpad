@@ -1,7 +1,16 @@
-$(function(){
+/** -------------------------------------------------------------------------------------*
+* Version: 3.0                                                                           *
+* framework: https://github.com/mail4hafij/phpwebpad                                     *
+* License: Free to use                                                                   *
+* ---------------------------------------------------------------------------------------*
+* DEVELOPED BY                                                                           *
+* Mohammad Hafijur Rahman                                                                *
+* mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
+* ------------------------------------------------------------------------------------ **/
 
+$(function(){
   /** 
-  * Handling ajax call
+  * START: Handling ajax call
   */
   $(document).ajaxSend(function (e, xhr, opt) {
     // We can add more url that should't start the loader here...
@@ -13,30 +22,38 @@ $(function(){
       });
     }
   });
-
+  
   $(document).ajaxError(function () {
     $.loader('close');
   });
-
+  
   $(document).ajaxComplete(function () {
     $.loader('close');
   });
-
   /**
-  * end 
+  * END
   */
 
-  /**
-  * start
-  * Making any form to ajax form.
-  */
 
+  /**
+  * START: Making any form to ajax form.
+  */
   // error = null | "any error msg from controller"
-  // showmsg = "any div id" | null then it will render the output into that div
+  // showmsg = "any div id" | null (then it will render the output into #showmsg div)
   // url = "current" | "any url" | null
-  // html = "any html" | null
+  // html = "any html content" | null
   var showJsonResponse = function (obj) {
     if (obj.error == null) {
+      
+      // check if success message has been sent from the controller
+      if (obj.success != null) {
+        if (obj.showmsg != null) {
+          $("#" + obj.showmsg).html(obj.success).addClass("success").removeClass("notice").removeClass("dsn").removeClass("error");
+        } else {
+          $("#showmsg").html(obj.success).addClass("success").removeClass("notice").removeClass("dsn").removeClass("error");
+        }
+      }
+
       // check if html has been sent from the controller
       if (obj.html != null) {
         if (obj.showmsg != null) {
@@ -51,30 +68,22 @@ $(function(){
         $("#" + obj.hide).hide();
       }
       
-      // check if success message has been sent from the controller
-      if (obj.success != null) {
-        if (obj.showmsg != null) {
-          $("#" + obj.showmsg).html(obj.success).addClass("success").removeClass("notice").removeClass("dsn").removeClass("error");
-        } else {
-          $("#showmsg").html(obj.success).addClass("success").removeClass("notice").removeClass("dsn").removeClass("error");
-        }
-      }
-
       // check if url is set or not
       if (obj.url == null) {
         // do nothing...
       } else if (obj.url == "current") {
         location.reload();
       } else {
-        // Check if the container is set or not
+        // check if container is set or not
         if(obj.container != null) {
           $("#" + obj.container).load(obj.url);
         } else {
           window.location = obj.url;
         }
       }
-
+      
     } else {
+      // error message has been sent from the controller
       if (obj.showmsg != null) {
         if(obj.showmsg == "alert") {
           alert(obj.error);
@@ -100,7 +109,8 @@ $(function(){
   // $.ajax options can be used here too, for example:
   // timeout:   3000
   };
-
+  
+  // Binding the form submit button with name jsonsubmit
   $(document).on('click', "button[name='jsonsubmit']", function () {
     if ($(this).hasClass("confirm")) {
       var conf = confirm("Are you sure?");
@@ -113,6 +123,7 @@ $(function(){
     return false;
   });
   
+  // Get a value from get variables given a key
   function getFromQueryString(url, key) {
     if(url.indexOf('?') != -1) {
       var variables = url.split('?')[1];
@@ -136,22 +147,22 @@ $(function(){
     return null;
   }
   
+  // Handle get requests
   $(document).on('click', "a.get", function() {
     var url = $(this).attr("href");
     var addClass = getFromQueryString(url, 'addClass');
     if(addClass != null) {
       $(this).addClass(addClass);
     }
+    
     var container = getFromQueryString(url, 'container');
-
     if ($(this).hasClass("confirm")) {
       var conf = confirm("Are you sure?");
       if (!conf) {
         return false;
       }
     } else {
-      // if there is no confirm box then just do the samething
-      // as if the user has clicked the yes button.
+      // check if container is set or not
       if(container == null) {
         $.get(url, showJsonResponse);
       } else {
@@ -170,8 +181,7 @@ $(function(){
     $(document.forms[formid]).ajaxSubmit(options);
     return false;
   };
-
   /**
-  * end
+  * END
   */
 });
