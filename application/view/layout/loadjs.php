@@ -8,6 +8,3 @@
 <!-- cookie -->
 <script type="text/javascript" src="/web/js/cookie/cookie.js"></script>
 <!-- phpwebpad dependencies end -->
-
-<!-- phpwebpad -->
-<script type="text/javascript" src="/web/js/phpwebpad.js"></script>
