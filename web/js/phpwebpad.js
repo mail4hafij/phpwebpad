@@ -63,9 +63,52 @@ $(function(){
         }
       }
 
+      // check if something needs to show
+      if (obj.show != null) {
+        if (Array.isArray(obj.show)) {
+          obj.show.map(function (e) {
+            $("#" + e).show();
+          });
+        } else {
+          $("#" + obj.show).show();
+        }
+      }
+
       // check if something needs to hide
-      if(obj.hide != null) {
-        $("#" + obj.hide).hide();
+      if (obj.hide != null) {
+        if (Array.isArray(obj.hide)) {
+          obj.hide.map(function (e) {
+            $("#" + e).hide();
+          });
+        } else {
+          $("#" + obj.hide).hide();
+        }
+      }
+
+      // check if something needs to render
+      if (obj.render != null) {
+        if (Array.isArray(obj.render)) {
+          obj.render.map(function (e) {
+            $("#" + e)
+              .load($("#" + e).attr("src"))
+              .show();
+          });
+        } else {
+          $("#" + obj.render)
+            .load($("#" + obj.render).attr("src"))
+            .show();
+        }
+      }
+
+      // check if something needs to remove
+      if (obj.remove != null) {
+        if (Array.isArray(obj.remove)) {
+          obj.remove.map(function (e) {
+            $("#" + e).empty();
+          });
+        } else {
+          $("#" + obj.remove).empty();
+        }
       }
       
       // check if url is set or not
@@ -158,8 +201,13 @@ $(function(){
     var container = getFromQueryString(url, 'container');
     if ($(this).hasClass("confirm")) {
       var conf = confirm("Are you sure?");
-      if (!conf) {
-        return false;
+      if (conf) {
+        // check if container is set or not
+        if (container == null) {
+          $.get(url, showJsonResponse);
+        } else {
+          $("#" + container).load(url);
+        }
       }
     } else {
       // check if container is set or not
