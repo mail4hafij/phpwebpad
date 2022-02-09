@@ -1,3 +1,6 @@
+<!-- Favicon Icon -->
+<link rel="icon" type="image/png" href="/web/img/favicon.ico">
+
 <!-- theme -->
 <link rel="stylesheet" href="/web/css/theme/style.css" type="text/css" media="all" />
 
