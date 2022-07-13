@@ -73,7 +73,11 @@ function clean($text, $clean_html = true, $keep_newline = true) {
       return strip_tags($text);
     }
   } else {
-    return nl2br($text);
+    if($keep_newline) {
+      return nl2br($text);
+    } else {
+      return $text;
+    }
   }
 }
 
