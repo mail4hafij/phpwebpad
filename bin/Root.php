@@ -64,19 +64,18 @@ function sql() {
   return $str;
 }
 
-function clean($text, $clean_html = true, $keep_newline = true) {
-  $text = trim($text);
+function clean($text, $clean_html = true, $nl_to_br = true) {
   if($clean_html) {
-    if($keep_newline) {
-      return nl2br(strip_tags($text));
+    if($nl_to_br) {
+      return nl2br(strip_tags(trim($text)));
     } else {
-      return strip_tags($text);
+      return strip_tags(trim($text));
     }
   } else {
-    if($keep_newline) {
-      return nl2br($text);
+    if($nl_to_br) {
+      return nl2br(trim($text));
     } else {
-      return $text;
+      return trim($text);
     }
   }
 }
