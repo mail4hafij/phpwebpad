@@ -49,15 +49,16 @@ class WebContext {
   }
   
   /**
-   * Returns the domain name
-   * i.e., www.hafij.com
+   * Returns the domain name 
+   * Also removing the leading www
+   * i.e., hafij.com
    * @return string
    */
   public static function getDomainName() {
     // For testing purpose
     if(!isset($_SERVER["SERVER_NAME"])) return 'localhost';
     
-    return $_SERVER["SERVER_NAME"];
+    return ltrim($_SERVER["SERVER_NAME"], "www");
   }
   
   public static function isLocalhost() {
