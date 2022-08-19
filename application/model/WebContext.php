@@ -14,10 +14,10 @@ class WebContext {
   
   /** 
    * Returns the full URL 
-   * i.e., http://myhost:3030/user/test?key=value
+   * i.e., https://www.hafij.com:3030/user/test?key=value
    * @return string
    */
-  public static function getCurrentURL() {
+  public static function getFullURL() {
     // For testing purpose
     if(!isset($_SERVER["SERVER_PORT"])) return 'localhost';
     
@@ -31,10 +31,11 @@ class WebContext {
   }
 
   /**
-   * Returns only the site URL
+   * Returns the domain URL 
+   * i.e., https://www.hafij.com:3030
    * @return string
    */
-  public static function getSiteAddress() {
+  public static function getDomainURL() {
     // For testing purpose
     if(!isset($_SERVER["SERVER_PORT"])) return 'localhost';
     
@@ -47,8 +48,20 @@ class WebContext {
     return $pageURL;
   }
   
+  /**
+   * Returns the domain name
+   * i.e., www.hafij.com
+   * @return string
+   */
+  public static function getDomainName() {
+    // For testing purpose
+    if(!isset($_SERVER["SERVER_NAME"])) return 'localhost';
+    
+    return $_SERVER["SERVER_NAME"];
+  }
+  
   public static function isLocalhost() {
-    return strstr(self::getSiteAddress(), 'localhost') !== false;
+    return strstr(self::getDomainName(), 'localhost') !== false;
   }
     
   public static function getIP() {

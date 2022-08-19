@@ -28,11 +28,13 @@ class Mail {
     
     $this->to = $to;
     $this->from = $from;
+    $this->domain_name = $domain_name;
   }
 
   public static function validateEmail($email) {
-    if(preg_match('/.*\@.*\..*/i', $email))
+    if(preg_match('/.*\@.*\..*/i', $email)){
       return true;
+    }
     return false;
   }
   
@@ -55,9 +57,9 @@ class Mail {
       time(), md5($this->from . $this->to), $this->domain_name) . $newLine;
     
     $subject = '=?utf-8?B?'.base64_encode($subject).'?=';
-    $msg = base64_encode($msg);
+    $encoded_msg = base64_encode($msg);
     
-    return mail($this->to, $subject, $msg, $headers);
+    return mail($this->to, $subject, $encoded_msg, $headers);
   }
   
 }

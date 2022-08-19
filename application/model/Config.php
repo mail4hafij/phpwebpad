@@ -10,14 +10,6 @@ class Config {
     return false;
   }
   
-  public static function validateName($name) {
-    if(preg_match('/.*[A-Z].*[A-Z].*/', $name)) {
-      // if contains more than one Uppercase latters
-      return false;
-    }
-    return true;
-  }
-
   public static function getRandomString() {
     return md5(uniqid(rand(), true));
   }
