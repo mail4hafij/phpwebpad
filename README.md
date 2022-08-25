@@ -1,4 +1,4 @@
-# phpwebpad (including php 8 version)
+# phpwebpad (updated to php version 8)
 phpwebpad is a very lightweight MVC driven framework for web development. My idea was to build this framework for my personal use so that I have all the things that I need without the fancy complexities I find in other frameworks. I think, it is worth sharing this project. 
 
 phpwebpad supports all the basic features that other PHP framewoks have - 
