@@ -1,6 +1,19 @@
 <IfModule mod_rewrite.c>
-   RewriteEngine on
-   RewriteRule (.*) index.php [NC]
+  RewriteEngine on
+
+  # Remember HTTP_HOST returns with www if exists.
+  # Rewrite everything to https
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  
+  # Rewrite to domain with www
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # NC means no case.  
+  # All the requests will go to index.php file except ads.txt file.
+  RewriteRule (.*) index.php [NC]
+
 </IfModule>
 
 # GZip Compression

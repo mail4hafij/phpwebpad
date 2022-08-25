@@ -9,6 +9,38 @@
 * mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
 * ------------------------------------------------------------------------------------ **/
 
+/**
+* START autoload classes
+* ----------------------
+* @param string $class
+* @exception if the class not found.
+*/
+function phpwebpad_autoloader($class){
+  // define all the path.
+  phpwebpad_class_define();
+  
+  if(file_exists(CORE.$class.'.php') == true) {
+    include_once(CORE.$class.'.php');
+  } else if(file_exists(ORM.$class.'.php') == true) {
+    include_once(ORM.$class.'.php');
+  } else if(file_exists(MODEL.$class.'.php') == true) {
+    include_once(MODEL.$class.'.php');
+  } else if(file_exists(LIB.$class.'.php') == true) {
+    include_once(LIB.$class.'.php');
+  } else if(file_exists(CONTROLLER.$class.'.php') == true) {
+    include_once(CONTROLLER.$class.'.php');
+  } else {
+    throw new Exception('Class '.$class.' can not be found.');
+  }
+}
+spl_autoload_register('phpwebpad_autoloader');
+
+// Manually include the root functions.
+include_once("bin/Root.php");
+/**
+ * END autoload classes
+ */
+
 // Start the session.
 session_start();
 
@@ -126,35 +158,7 @@ function phpwebpad_class_define() {
  */
 
 
-/**
-* START autoload classes
-* ----------------------
-* @param string $class
-* @exception if the class not found.
-*/
-function __autoload($class){
-  // define all the path.
-  phpwebpad_class_define();
-  
-  if(file_exists(CORE.$class.'.php') == true) {
-    include_once(CORE.$class.'.php');
-  } else if(file_exists(ORM.$class.'.php') == true) {
-    include_once(ORM.$class.'.php');
-  } else if(file_exists(MODEL.$class.'.php') == true) {
-    include_once(MODEL.$class.'.php');
-  } else if(file_exists(LIB.$class.'.php') == true) {
-    include_once(LIB.$class.'.php');
-  } else if(file_exists(CONTROLLER.$class.'.php') == true) {
-    include_once(CONTROLLER.$class.'.php');
-  } else {
-    throw new Exception('Class '.$class.' can not be found.');
-  }
-}
-// Manually include the root functions.
-include_once("bin/Root.php");
-/**
- * END autoload classes
- */
+
 
 
  /**
