@@ -29,8 +29,6 @@
       <div id="footwrap">&copy; Free to use phpwebpad</div>
     </div>
       
-    <?php echo Controller::renderElement("bug/report"); ?>  
-    
     <?php
     $usejs = new Request("/layout/usejs");
     Router::render($usejs);
