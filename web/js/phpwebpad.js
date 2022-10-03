@@ -127,7 +127,7 @@ $(function(){
       
     } else {
       // error message has been sent from the controller
-      obj.error = obj.error + "<br />" + "<a href='#' class='bug' data-toggle='modal' data-target='#bug_report'>Rapportera ett problem</a>";
+      // obj.error = obj.error + "<br />" + "<a href='#' class='bug' data-toggle='modal' data-target='#bug_report'>Rapportera ett problem</a>";
       if (obj.showmsg != null) {
         if(obj.showmsg == "alert") {
           alert(obj.error);
