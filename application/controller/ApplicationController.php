@@ -9,7 +9,7 @@ class ApplicationController extends LayoutController {
   }
   
   public function jsonActions() {
-    return array();
+    return array('submitBugReport');
   }
   /**
   * End
@@ -19,5 +19,31 @@ class ApplicationController extends LayoutController {
     
   }
 
+  public function submitBugReport() {
+    $json = new JSONResponse();
+    $json->setVar('showmsg', 'showmsg_bug_report');
+    
+    if(!isset($_POST["problem"])) {
+      $json->setVar('error', Bob::translate("error in input data"));
+      return $json;
+    }
+    
+    try {
+      $report = Helper::clean($_POST["problem"]);
+      
+      if(!empty($report)) {
+        // Email admin
+      }
+      
+            
+    } catch(Exception $e) {
+      $json->setVar("error", Bob::translate($e->getMessage()));
+      return $json;
+    }
+
+    $json->setVar("url", "current");
+    InfoKeeper::setCurrentStatus(Bob::translate("Thank you for reporting. We will look at this as soon as possible."));
+    return $json;
+  }
 }
 ?>
