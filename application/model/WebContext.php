@@ -1,6 +1,6 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 3.0                                                                           *
+* Version: 4.0                                                                           *
 * framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
@@ -11,6 +11,7 @@
 
 class WebContext {
   public static $URL_PREFIX = "https://";
+  public static $LOCALHOST = "localhost";
   
   /** 
    * Returns the full URL 
@@ -19,7 +20,9 @@ class WebContext {
    */
   public static function getFullURL() {
     // For testing purpose
-    if(!isset($_SERVER["SERVER_PORT"])) return 'localhost';
+    if(!isset($_SERVER["SERVER_PORT"])) {
+      return self::$LOCALHOST;
+    }
     
     $pageURL = self::$URL_PREFIX;
     if($_SERVER["SERVER_PORT"] != "80") {
@@ -37,7 +40,9 @@ class WebContext {
    */
   public static function getDomainURL() {
     // For testing purpose
-    if(!isset($_SERVER["SERVER_PORT"])) return 'localhost';
+    if(!isset($_SERVER["SERVER_PORT"])) {
+      return self::$LOCALHOST;
+    }
     
     $pageURL = self::$URL_PREFIX;
     if($_SERVER["SERVER_PORT"] != "80") {
@@ -50,19 +55,24 @@ class WebContext {
   
   /**
    * Returns the domain name 
-   * Also removing the leading www
+   * Also removing the leading www if $exclude_www is true
    * i.e., hafij.com
    * @return string
    */
-  public static function getDomainName() {
+  public static function getDomainName($exclude_www = true) {
     // For testing purpose
-    if(!isset($_SERVER["SERVER_NAME"])) return 'localhost';
+    if(!isset($_SERVER["SERVER_NAME"])) {
+      return self::$LOCALHOST;
+    }
     
-    return ltrim($_SERVER["SERVER_NAME"], "www");
+    if($exclude_www) {
+      return ltrim($_SERVER["SERVER_NAME"], "www");
+    }
+    return $_SERVER["SERVER_NAME"];
   }
   
   public static function isLocalhost() {
-    return strstr(self::getDomainName(), 'localhost') !== false;
+    return strstr(self::getDomainName(), self::$LOCALHOST) !== false;
   }
     
   public static function getIP() {

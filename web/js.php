@@ -9,28 +9,17 @@
 * mail4hafij@yahoo.com, mail4hafij@gmail.com                                             *
 * ------------------------------------------------------------------------------------ **/
 
-class JSONResponse {
-  private $var = array();
+header('Content-type: application/javascript');
+$js_files = array(
+  "js/phpwebpad.js",
+); 
 
-  /**
-  * Set JSON variable.
-  * @param string $name
-  * @param string $value
-  */
-  public function setVar($name, $value) {
-    $this->var[$name] = $value;
-  }
-  
-  public function add($data) {
-    $this->var[] = $data;
-  }
-
-  /**
-  * Return JSON string.
-  * @return string
-  */
-  public function getResponse() {
-    return json_encode($this->var);
-  }
+$js = "";
+foreach($js_files as $file) {
+  $content = file_get_contents($file);
+  $js = $js."\n".$content;
+  // include_once($file);
 }
+
+echo $js;
 ?>

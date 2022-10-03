@@ -1,5 +1,5 @@
 /** -------------------------------------------------------------------------------------*
-* Version: 3.0                                                                           *
+* Version: 4.0                                                                           *
 * framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
@@ -127,14 +127,21 @@ $(function(){
       
     } else {
       // error message has been sent from the controller
+      obj.error = obj.error + "<br />" + "<a href='#' class='bug' data-toggle='modal' data-target='#bug_report'>Rapportera ett problem</a>";
       if (obj.showmsg != null) {
         if(obj.showmsg == "alert") {
           alert(obj.error);
         } else {
           $("#" + obj.showmsg).html(obj.error).addClass("error").removeClass("notice").removeClass("dsn");
+          $("html, body").animate({
+            scrollTop: $("#" + obj.showmsg).offset().top - 30
+          }, 500);
         }
       } else {
         $("#showmsg").html(obj.error).addClass("error").removeClass("notice").removeClass("dsn");
+        $("html, body").animate({
+            scrollTop: $("#showmsg").offset().top - 30
+          }, 500);
       }
     }
   };
@@ -155,14 +162,45 @@ $(function(){
   
   // Binding the form submit button with name jsonsubmit
   $(document).on('click', "button[name='jsonsubmit']", function () {
+    /*  
     if ($(this).hasClass("confirm")) {
-      var conf = confirm("Are you sure?");
+      var conf = confirm("Please confirm!");
       if (!conf) {
         return false;
       }
     }
-
-    $(this.form).ajaxSubmit(options);
+    */
+    if ($(this).hasClass("confirm")) {
+      var mainForm = $(this.form);
+      $.post("/Translation/getJsConfirm", {phrase: 'Please confirm!'}, function(json) {
+        $.confirm({
+          'message'	: json.text,
+          'buttons'	: {
+              yes : {
+                'name' : json.yes,
+                'class'	: 'blue',
+                'action': function(){
+                  
+                  $(mainForm).ajaxSubmit(options);
+                  return false;
+                  
+                }
+              },
+              no : {
+                'name' : json.no,
+                'class'	: 'gray',
+                'action': function(){
+                  // Do nothing
+                  return false;
+                }	
+              }
+            }
+        });
+      });
+    } else {
+      $(this.form).ajaxSubmit(options);
+    }
+    
     return false;
   });
   
@@ -200,6 +238,34 @@ $(function(){
     
     var container = getFromQueryString(url, 'container');
     if ($(this).hasClass("confirm")) {
+      $.post("/Translation/getJsConfirm", {phrase: 'Please confirm!'}, function(json) {
+        $.confirm({
+          'message'	: json.text,
+          'buttons'	: {
+              yes : {
+                'name' : json.yes,
+                'class'	: 'blue',
+                'action': function(){
+                  // Yes has been clicked.
+                  if(container == null) {
+                    $.get(url, showJsonResponse);
+                  } else {
+                    $("#" + container).load(url);
+                  }
+                }
+              },
+              no : {
+                'name' : json.no,
+                'class'	: 'gray',
+                'action': function(){
+                  // Do nothing
+                  return false;
+                }	
+              }
+            }
+        });
+      });
+      /*
       var conf = confirm("Are you sure?");
       if (conf) {
         // check if container is set or not
@@ -209,6 +275,7 @@ $(function(){
           $("#" + container).load(url);
         }
       }
+      */
     } else {
       // check if container is set or not
       if(container == null) {

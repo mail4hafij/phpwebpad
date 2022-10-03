@@ -1,6 +1,6 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 3.0                                                                           *
+* Version: 4.0                                                                           *
 * framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
@@ -19,7 +19,9 @@ function phpwebpad_autoloader($class){
   // define all the path.
   phpwebpad_class_define();
   
-  if(file_exists(CORE.$class.'.php') == true) {
+  if(file_exists(BIN.$class.'.php') == true) {
+    include_once(BIN.$class.'.php');
+  } else if(file_exists(CORE.$class.'.php') == true) {
     include_once(CORE.$class.'.php');
   } else if(file_exists(ORM.$class.'.php') == true) {
     include_once(ORM.$class.'.php');
@@ -34,15 +36,24 @@ function phpwebpad_autoloader($class){
   }
 }
 spl_autoload_register('phpwebpad_autoloader');
-
-// Manually include the root functions.
-include_once("bin/Root.php");
 /**
  * END autoload classes
  */
 
+
 // Start the session.
 session_start();
+/*
+$time = time();
+// 15 mintues
+if(isset($_SESSION["session_start"]) && 
+  $time - $_SESSION["session_start"] > 900) {
+  session_unset();
+  session_destroy();
+  header('Location: /');
+}
+$_SESSION["session_start"] = $time;
+*/
 
 // Set the execution time for 5 min.
 ini_set('max_execution_time', 300);
@@ -50,6 +61,8 @@ ini_set('max_execution_time', 300);
 // Set display_errors to 1 in the local environment.
 ini_set('display_errors', 1);
 
+// Remove previously set headers.
+header_remove("X-Powered-By");
 
 /**
  * START Error Handling
@@ -147,6 +160,7 @@ function phpwebpad_name_define() {
 }
 
 function phpwebpad_class_define() {
+  if(!defined('BIN')) define("BIN", "bin/");
   if(!defined('CORE')) define("CORE", "bin/core/");
   if(!defined('ORM')) define("ORM", "bin/orm/");
   if(!defined('MODEL')) define("MODEL", "application/model/");

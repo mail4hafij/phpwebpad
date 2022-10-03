@@ -3,7 +3,7 @@
 # ========================================================================#
 #  Modified by: Mohammad Hafijur Rahman
 #  Author:    Jarrod Oberto
-#  Version:	 1.0
+#  Version:	  1.0
 #  Date:      17-Jan-10
 #  Purpose:   Resizes and saves image
 #  Requires : Requires PHP5, GD library.

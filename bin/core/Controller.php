@@ -1,6 +1,6 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 3.0                                                                           *
+* Version: 4.0                                                                           *
 * framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
@@ -63,8 +63,6 @@ abstract class Controller {
       throw new Exception("FATAL: Layout file ".$layout_file." can not be found.");
     }
     
-    include_once(CORE."Minifier.php");
-    
     if(file_exists($layout_file) && file_exists($view_file)) {  
       ob_start();
       extract($this->getViewVar(), EXTR_PREFIX_SAME, 'view_');
@@ -76,7 +74,7 @@ abstract class Controller {
       $this->setLayoutVar("__VIEW__", $view_file_content);
       extract($this->getLayoutVar(), EXTR_PREFIX_SAME, 'layout_');
       include($layout_file);
-      $layout_file_content = Minifier::minify(ob_get_contents());
+      $layout_file_content = ob_get_contents();
       ob_end_clean();
       
       echo($layout_file_content);
@@ -85,7 +83,7 @@ abstract class Controller {
       ob_start();
       extract($this->getViewVar(), EXTR_PREFIX_SAME, 'view_');
       include($view_file);
-      $view_file_content = Minifier::minify(ob_get_contents());
+      $view_file_content = ob_get_contents();
       ob_end_clean();
       
       echo($view_file_content);
@@ -94,7 +92,7 @@ abstract class Controller {
       ob_start();
       extract($this->getLayoutVar(), EXTR_PREFIX_SAME, 'layout_');
       include($layout_file);
-      $layout_file_content = Minifier::minify(ob_get_contents());
+      $layout_file_content = ob_get_contents();
       ob_end_clean();
       
       echo($layout_file_content);

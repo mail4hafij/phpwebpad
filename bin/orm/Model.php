@@ -1,6 +1,6 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 3.0                                                                           *
+* Version: 4.0                                                                           *
 * framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
@@ -170,14 +170,14 @@ abstract class Model {
                 $allow_cascade[$id] == true) {
                 // Then delete
                 $primary_key = $this->tableDefinition->getPrimaryKeyName();
-                $db->setDeletedAll($class_name, sql("$id = %s", $this->$primary_key));
+                $db->setDeletedAll($class_name, Helper::sql("$id = %s", $this->$primary_key));
                 break;
                 
               } else if($col['name'] == $id && $col['non_null'] == false && 
                 $allow_cascade[$id] == true) {
                 // Then set null.
                 $primary_key = $this->tableDefinition->getPrimaryKeyName();
-                $db->setNullAll($class_name, $id, sql("$id = %s", $this->$primary_key));
+                $db->setNullAll($class_name, $id, Helper::sql("$id = %s", $this->$primary_key));
                 break;
                 
               } else if($col['name'] == $id && $allow_cascade[$id] == false) {
@@ -186,7 +186,7 @@ abstract class Model {
                 // But we should only throw exception when the object is found in 
                 // the reference data list.
                 $primary_key = $this->tableDefinition->getPrimaryKeyName();
-                $count = $db->countAll($class_name, sql("$id = %s", $this->$primary_key));
+                $count = $db->countAll($class_name, Helper::sql("$id = %s", $this->$primary_key));
                 if($count > 0) {
                   throw new Exception($model_name." is not allowed to be deleted in $class_name");
                 }

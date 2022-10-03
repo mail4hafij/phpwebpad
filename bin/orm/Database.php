@@ -1,6 +1,6 @@
 <?php
 /** -------------------------------------------------------------------------------------*
-* Version: 3.0                                                                           *
+* Version: 4.0                                                                           *
 * framework: https://github.com/mail4hafij/phpwebpad                                     *
 * License: Free to use                                                                   *
 * ---------------------------------------------------------------------------------------*
@@ -39,7 +39,7 @@ class Database {
     
     $this->db = $db;
   }
-
+  
   /**
   * Responsible for creating/altering table from a table definition.
   * @param TableDefinition $table
@@ -671,7 +671,7 @@ class Database {
   * @param int $id
   * @return $class_name object
   */
-  public function loadById($class_name, $id) {
+  public function loadOnlyById($class_name, $id) {
     if(empty($id)) {
       throw new Exception('Id can not be empty');
     }
@@ -994,6 +994,44 @@ class Database {
 
     $sql = sprintf('UPDATE %s SET deleted = 1 %s',
                       self::wrapName($table_name),
+                      $where_clause);
+    
+    $this->query($sql);
+  }
+  
+  /**
+   * Set null.
+   * @param type $class_name
+   * @param type $where
+   * @throws Exception
+   */
+  public function setNullAll($class_name, $column_name, $where = null) {
+    $obj = new $class_name();
+    $table_name = $obj->getTableDefinition()->getTableName();
+
+    $where_clause = "";
+    if(is_string($where)) {
+      $where_clause = "WHERE ".$where;
+
+    } else if(is_array($where)) {
+      foreach($where as $key => $value) {
+        $where_clause = $where_clause . self::wrapName($key) . " = " .
+        self::wrapValue($value) . " AND ";
+      }
+
+      if(!empty($where_clause)) {
+        $where_clause = "WHERE " . rtrim($where_clause, 'AND ');
+      }
+      
+    } else if(empty($where)) {
+      // its ok.
+    } else {
+      throw new Exception('WHERE clause is not valid.');
+    }
+
+    $sql = sprintf('UPDATE %s SET %s = NULL %s',
+                      self::wrapName($table_name),
+                      self::wrapName($column_name),
                       $where_clause);
     
     $this->query($sql);
