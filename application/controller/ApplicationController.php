@@ -24,7 +24,7 @@ class ApplicationController extends LayoutController {
     $json->setVar('showmsg', 'showmsg_bug_report');
     
     if(!isset($_POST["problem"])) {
-      $json->setVar('error', Bob::translate("error in input data"));
+      $json->setVar('error', "error in input data");
       return $json;
     }
     
@@ -37,12 +37,12 @@ class ApplicationController extends LayoutController {
       
             
     } catch(Exception $e) {
-      $json->setVar("error", Bob::translate($e->getMessage()));
+      $json->setVar("error", $e->getMessage());
       return $json;
     }
 
     $json->setVar("url", "current");
-    InfoKeeper::setCurrentStatus(Bob::translate("Thank you for reporting. We will look at this as soon as possible."));
+    InfoKeeper::setCurrentStatus("Thank you for reporting. We will look at this as soon as possible.");
     return $json;
   }
 }
