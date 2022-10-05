@@ -8,7 +8,7 @@
   
   # Rewrite to domain with www
   # RewriteCond %{HTTP_HOST} !^www\. [NC]
-  # RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # NC means no case.  
   # All the requests will go to index.php file except ads.txt file.
