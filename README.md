@@ -16,6 +16,6 @@ It supports ORM (Object Releational Mapping) with MySql. The ORM has a lot of co
  * Truncate tables without loosing auto increament index
  * Database transactions
 
-It is easily integratable with testing framworks such as <a href="https://phpunit.readthedocs.io/en/9.5/index.html" target="_blank">phpunit</a>
+It is easy to integrate different testing framworks such as <a href="https://phpunit.readthedocs.io/en/9.5/index.html" target="_blank">phpunit</a>
 
 It gives all the basic features that you may expect from a server side MVC framework. You can learn it within an hour. Visit <a href="http://phpwebpad.hafij.com" target="_blank">phpwebpad.hafij.com</a>
