@@ -1,0 +1,21 @@
+{
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "classmap": [
+      "bin",
+      "bin/core",
+      "bin/orm",
+      "application/model",
+      "lib",
+      "application/controller"
+    ],
+    "files": [
+      
+    ]
+  },
+  "require": {
+    
+  }
+}

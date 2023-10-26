@@ -17,5 +17,12 @@ It supports ORM (Object Releational Mapping) with MySql. The ORM has a lot of co
  * Database transactions
 
 It is easy to integrate different testing framworks such as <a href="https://phpunit.readthedocs.io/en/9.5/index.html" target="_blank">phpunit</a>
+All the tests are in the 'test' folder. Create a database royalkund_test.
+Open a terminal in the root and run
+
+```
+composer install
+./vendor/bin/phpunit --testdox
+```
 
 It gives all the basic features that you may expect from a server side MVC framework. You can learn it within an hour. Visit <a href="http://phpwebpad.hafij.com" target="_blank">phpwebpad.hafij.com</a>
