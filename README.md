@@ -22,7 +22,7 @@ Open a terminal in the root project folder and run
 
 ```
 composer install
-./vendor/bin/phpunit --testdox
+./vendor/bin/phpunit --testdox ./test/TimeMachineTest.php
 ```
 
 It gives all the basic features that you may expect from a server side MVC framework. You can learn it within an hour. Visit <a href="http://phpwebpad.hafij.com" target="_blank">phpwebpad.hafij.com</a>
