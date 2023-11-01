@@ -11,7 +11,7 @@
 
 class TimeMachine {
   public static $TIME_ZONE = 1;   // Sweden
-  public static $ADJ_HOUR = 1;    // Daylight saving
+  public static $ADJ_HOUR = 0;    // Daylight saving (winter = 0 | summer = 1)
   public static $TIME_TRAVEL = 0; // Days (pos/neg) we want to travel
   
   private static function getAdjustedTime() {
