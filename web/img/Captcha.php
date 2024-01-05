@@ -7,30 +7,30 @@ class Captcha {
   public function __construct($width='260', $height='40', $length='6') {
     $font = dirname(__FILE__).'/ERECTL__.ttf';
     
-		$code = $this->generateCode($length);
-		/* font size will be 75% of the image height */
-		$font_size = $height * 0.75;
-		$this->image = @imagecreate($width, $height) or die('Cannot initialize new GD image stream');
-    
-		/* set the colours */
-		$background_color = imagecolorallocate($this->image, 98, 153, 197);
-		$text_color = imagecolorallocate($this->image, 255, 255, 255);
+    $code = $this->generateCode($length);
+    /* font size will be 75% of the image height */
+    $font_size = $height * 0.75;
+    $this->image = @imagecreate($width, $height) or die('Cannot initialize new GD image stream');
+
+    /* set the colours */
+    $background_color = imagecolorallocate($this->image, 98, 153, 197);
+    $text_color = imagecolorallocate($this->image, 255, 255, 255);
     
     /*
-		$noise_color = imagecolorallocate($this->image, 59, 255, 152);
+    $noise_color = imagecolorallocate($this->image, 59, 255, 152);
     
     // generate random dots in background
-		for( $i=0; $i<($width*$height)/3; $i++ ) {
-			imagefilledellipse($this->image, mt_rand(0,$width), mt_rand(0,$height), 1, 1, $noise_color);
-		}
+    for( $i=0; $i<($width*$height)/3; $i++ ) {
+      imagefilledellipse($this->image, mt_rand(0,$width), mt_rand(0,$height), 1, 1, $noise_color);
+    }
     
-		// generate random lines in background
+    // generate random lines in background
     for( $i=0; $i<($width*$height)/150; $i++ ) {
-			imageline($this->image, mt_rand(0,$width), mt_rand(0,$height), mt_rand(0,$width), mt_rand(0,$height), $noise_color);
+    imageline($this->image, mt_rand(0,$width), mt_rand(0,$height), mt_rand(0,$width), mt_rand(0,$height), $noise_color);
 		}
     */
     
-		/* create textbox and add text */
+    /* create textbox and add text */
 		$textbox = @imagettfbbox($font_size, 0, $font, $code) or die('Error in imagettfbbox function');
 		$x = ($width - $textbox[4])/2;
 		$y = ($height - $textbox[5])/2;
@@ -54,9 +54,9 @@ class Captcha {
   
   public function outputImage() {
     /* output captcha image to browser */
-		header('Content-Type: image/jpeg');
-		imagejpeg($this->image);
-		imagedestroy($this->image);
+    header('Content-Type: image/jpeg');
+    imagejpeg($this->image);
+    imagedestroy($this->image);
   }
 }
 
