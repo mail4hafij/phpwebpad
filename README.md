@@ -17,7 +17,7 @@ It supports ORM (Object Releational Mapping) with MySql. The ORM has a lot of co
  * Database transactions
 
 It is easy to integrate different testing framworks such as <a href="https://phpunit.readthedocs.io/en/9.5/index.html" target="_blank">phpunit</a>.
-All the tests are in the 'test' folder. Create a database royalkund_test.
+All the tests are in the 'test' folder. Create a database phpwebpad_test.
 Open a terminal in the root project folder and run
 
 ```
