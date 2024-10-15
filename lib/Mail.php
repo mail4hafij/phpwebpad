@@ -49,14 +49,13 @@ class Mail {
     $newLine = "\r\n";
     $headers = "MIME-Version: 1.0" . $newLine;
     $headers .= "Content-Type: text/html;charset=utf-8" . $newLine;
-    $headers .= 'Content-Transfer-Encoding: base64' . $newLine;
-    $headers .= 'Date: ' . date("r") . $newLine;
+    $headers .= "Content-Transfer-Encoding: base64" . $newLine;
+    $headers .= "Date: " . date("r") . $newLine;
     $headers .= "From: $this->from" . $newLine;
     $headers .= "Reply-To: $this->from" . $newLine;
-    $headers .= 'Message-ID: ' . sprintf("<%s.%s@%s>",
-      time(), md5($this->from . $this->to), $this->domain_name) . $newLine;
+    $headers .= "Message-ID: " . sprintf("<%s.%s@%s>", time(), md5($this->from . $this->to), $this->domain_name) . $newLine;
     
-    $subject = '=?utf-8?B?'.base64_encode($subject).'?=';
+    $subject = "=?utf-8?B?".base64_encode($subject)."?=";
     $encoded_msg = base64_encode($msg);
     
     return mail($this->to, $subject, $encoded_msg, $headers);

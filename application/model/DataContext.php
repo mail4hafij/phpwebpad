@@ -30,6 +30,8 @@ class DataContext {
         // Server
       } 
     }
+    // set charset to utf-8
+    self::$database->SetCharSet("utf8");
     return self::$database;
   }
   

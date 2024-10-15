@@ -1044,5 +1044,13 @@ class Database {
   public function getQueryLog() {
     return $this->queryLog;
   }
+  
+  /**
+   * Sets the charset
+   * @param type $charSet
+   */
+  public function SetCharSet($charSet) {
+    mysqli_set_charset($this->link, $charSet);
+  }
 }
 ?>

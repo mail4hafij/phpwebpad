@@ -64,6 +64,9 @@ ini_set('display_errors', 1);
 // Remove previously set headers.
 header_remove("X-Powered-By");
 
+// Set character set.
+header('Content-Type: text/html; charset=utf-8');
+
 /**
  * START Error Handling
  * --------------------
