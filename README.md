@@ -16,6 +16,12 @@ It supports ORM (Object Releational Mapping) with MySql. The ORM has a lot of co
  * Truncate tables without loosing auto increament index
  * Database transactions
 
+## How to run locally
+ * Change the DocumentRoot in your httpd.conf file to point to ```phpwebpad``` folder
+ * Restart your apache server
+ * Create a database ```phpwebpad``` in your phpmyadmin
+ * Hit localhost in your browser
+
 It is easy to integrate different testing framworks such as <a href="https://phpunit.readthedocs.io/en/9.5/index.html" target="_blank">phpunit</a>.
 All the tests are in the 'test' folder. Create a database phpwebpad_test.
 Open a terminal in the root project folder and run
