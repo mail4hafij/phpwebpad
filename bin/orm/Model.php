@@ -21,7 +21,7 @@ abstract class Model {
   /**
   * construct the model and call the table definition to be loaded.
   */
-  public function __construct(Database $db = null) {
+  public function __construct(?Database $db = null) {
     $this->tableDefinition = $this->getTableDefinition();
     if($this->tableDefinition == null) {
       throw new Exception('Can not load table definition.');
