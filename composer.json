@@ -8,6 +8,7 @@
       "bin/core",
       "bin/orm",
       "application/model",
+      "application/integration",
       "lib",
       "application/controller"
     ],
