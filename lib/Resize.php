@@ -119,8 +119,8 @@ Class Resize {
     
     // *** Get optimal width and height - based on $option
     $optionArray = $this->getDimensions($newWidth, $newHeight, $option);
-    $optimalWidth = $optionArray['optimalWidth'];
-    $optimalHeight = $optionArray['optimalHeight'];
+    $optimalWidth = (int) $optionArray['optimalWidth'];
+    $optimalHeight = (int) $optionArray['optimalHeight'];
 
     
         
@@ -299,8 +299,10 @@ Class Resize {
     // resized image when we are finished with any 
     // resize. For the next resize we need to call the 
     // constructor again.
-    imagedestroy($this->imageResized);
-    imagedestroy($this->image);
+    // imagedestroy() was removed in PHP 8.5 (deprecated since 8.0, no-op since 8.0)
+    // GD resources are now objects and freed automatically by the garbage collector.
+    $this->imageResized = null;
+    $this->image = null;
   }
 
   ## --------------------------------------------------------
