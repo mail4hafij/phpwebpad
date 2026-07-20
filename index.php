@@ -31,6 +31,8 @@ function phpwebpad_autoloader($class){
     include_once(LIB.$class.'.php');
   } else if(file_exists(CONTROLLER.$class.'.php') == true) {
     include_once(CONTROLLER.$class.'.php');
+  } else if(file_exists(INTEGRATION.$class.'.php') == true) {
+    include_once(INTEGRATION.$class.'.php');
   } else {
     throw new Exception('Class '.$class.' can not be found.');
   }
@@ -39,6 +41,11 @@ spl_autoload_register('phpwebpad_autoloader');
 /**
  * END autoload classes
  */
+
+// Load Composer dependencies (smalot/pdfparser, etc.)
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+  require_once __DIR__ . '/vendor/autoload.php';
+}
 
 
 // Start the session.
@@ -163,12 +170,14 @@ function phpwebpad_name_define() {
 }
 
 function phpwebpad_class_define() {
+  if(!defined('ROOT')) define("ROOT", __DIR__);
   if(!defined('BIN')) define("BIN", "bin/");
   if(!defined('CORE')) define("CORE", "bin/core/");
   if(!defined('ORM')) define("ORM", "bin/orm/");
   if(!defined('MODEL')) define("MODEL", "application/model/");
   if(!defined('LIB')) define("LIB", "lib/");
   if(!defined('CONTROLLER')) define("CONTROLLER", "application/controller/");
+  if(!defined('INTEGRATION')) define("INTEGRATION", "application/integration/");
 }
 /**
  * END Defining path for this framework
@@ -186,6 +195,7 @@ function phpwebpad_class_define() {
 * Then pass the request to the router in order to render the controller.
 */
 phpwebpad_name_define();
+phpwebpad_class_define();
 $request = new Request($_SERVER['REQUEST_URI']);
 
 /**
